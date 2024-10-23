@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Imposta il fuso orario
 ENV TZ=Europe/Rome
 
-# Aggiorna i pacchetti, installa Python 3.10, pip, tzdata e le dipendenze per MongoDB
+# Aggiorna i pacchetti e installa dipendenze di base
 RUN apt-get update && apt-get install -y \
     python3.10 \
     python3.10-venv \
@@ -23,6 +23,11 @@ RUN apt-get update && apt-get install -y \
     tzdata && \
     ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata
+
+# Scarica e installa manualmente libssl1.1 da Ubuntu 20.04 (focal)
+RUN wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb && \
+    dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb && \
+    rm libssl1.1_1.1.1f-1ubuntu2_amd64.deb
 
 # Aggiungi il repository di MongoDB
 RUN wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add - && \
@@ -58,4 +63,4 @@ COPY ./app /app
 EXPOSE 8094
 
 # Avvia MongoDB e l'applicazione FastAPI, con Dockerize per attendere che MongoDB sia pronto
-CMD ["dockerize", "-wait", "tcp://localhost:27017", "-timeout", "30s", "bash", "-c", "mongod --bind_ip_all & uvicorn main:app --host 0.0.0.0 --port 8094", "--workers", "1"]
+CMD ["dockerize", "-wait", "tcp://localhost:27017", "-timeout", "30s", "bash", "-c", "mongod --bind_ip_all & uvicorn main:app --host 0.0.0.0 --port 8094"]
