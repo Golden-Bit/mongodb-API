@@ -2,4 +2,4 @@ pyYAML
 fastapi
 bson
 uvicorn
-pymongo
+motor
