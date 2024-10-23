@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Imposta il fuso orario
 ENV TZ=Europe/Rome
 
-# Aggiorna i pacchetti e installa MongoDB, Python 3.10, pip e tzdata
+# Aggiorna i pacchetti, installa Python 3.10, pip, tzdata e le dipendenze per MongoDB
 RUN apt-get update && apt-get install -y \
     python3.10 \
     python3.10-venv \
@@ -22,8 +22,14 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     tzdata && \
     ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
-    dpkg-reconfigure --frontend noninteractive tzdata && \
-    apt-get install -y mongodb && \
+    dpkg-reconfigure --frontend noninteractive tzdata
+
+# Aggiungi il repository di MongoDB
+RUN wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add - && \
+    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+
+# Installa MongoDB
+RUN apt-get update && apt-get install -y mongodb-org && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Scarica dockerize dal link fornito e imposta i permessi di esecuzione
@@ -33,7 +39,7 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/v0.8.0/dockerize
     chmod +x /usr/local/bin/dockerize && \
     rm dockerize-alpine-linux-amd64-v0.8.0.tar.gz
 
-# Crea la directory per MongoDB e imposta il suo percorso di lavoro
+# Crea la directory per MongoDB
 RUN mkdir -p /data/db
 VOLUME /data/db
 
