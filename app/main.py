@@ -22,7 +22,7 @@ class DBCredentials(BaseModel):
     db_name: str
     username: Optional[str] = None
     password: Optional[str] = None
-    host: Optional[str] = "localhost"
+    host: Optional[str] = "mongodb"
     port: Optional[int] = 27017
 
 

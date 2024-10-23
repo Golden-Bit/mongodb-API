@@ -12,7 +12,7 @@ services:
 
   fastapi_app:
     build: .
-    container_name: fastapi_app
+    container_name: mongodb_api
     restart: always
     ports:
       - "8094:8094"  # Espone la porta dell'app FastAPI
