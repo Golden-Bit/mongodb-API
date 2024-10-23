@@ -1,0 +1,5 @@
+pyYAML
+fastapi
+bson
+uvicorn
+pymongo

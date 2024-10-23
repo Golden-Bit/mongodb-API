@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"  # Espone la porta predefinita di MongoDB
+    volumes:
+      - mongodb_data:/data/db
+
+  fastapi_app:
+    build: .
+    container_name: fastapi_app
+    restart: always
+    ports:
+      - "8094:8094"  # Espone la porta dell'API FastAPI
+    depends_on:
+      - mongodb  # Assicura che MongoDB venga avviato prima di FastAPI
+    environment:
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+
+volumes:
+  mongodb_data:
