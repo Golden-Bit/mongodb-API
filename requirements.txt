@@ -3,3 +3,4 @@ fastapi
 bson
 uvicorn
 motor
+python-multipart
