@@ -6,6 +6,7 @@ from typing import Any, Dict
 from pydantic import BaseModel, ValidationError, create_model, Field
 from bson import ObjectId
 from app.utils import add_database, get_mongo_client, get_db_instance, validate_input, schemas
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="MongoDB FastAPI Backend",
@@ -13,6 +14,16 @@ app = FastAPI(
     version="1.0.0",
     #root_path="/api/mongodb-api"
 )
+
+# Configurazione CORS per permettere tutte le origini
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permetti tutte le origini
+    allow_credentials=True,
+    allow_methods=["*"],  # Permetti tutti i metodi (GET, POST, OPTIONS, ecc.)
+    allow_headers=["*"],  # Permetti tutti gli headers
+)
+
 
 # Dizionario globale per mantenere le connessioni ai database
 databases = {}
