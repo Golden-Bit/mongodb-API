@@ -12,7 +12,7 @@ app = FastAPI(
     title="MongoDB FastAPI Backend",
     description="API per la gestione di database MongoDB, collezioni e documenti utilizzando FastAPI.",
     version="1.0.0",
-    #root_path="/api/mongodb-api"
+    root_path="/mongodb-api"
 )
 
 # Configurazione CORS per permettere tutte le origini
