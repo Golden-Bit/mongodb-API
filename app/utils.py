@@ -20,7 +20,7 @@ async def get_mongo_client(username: str = None, password: str = None, host: str
         f"mongodb://{host}:{port}/?maxPoolSize=10"
     # TODO:
     #   - trova sluzione più elegante
-    uri = "mongodb+srv://simonesansalone777:JL99uuDxXH4bDmcc@cluster0.gjfue.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    #uri = "mongodb+srv://simonesansalone777:JL99uuDxXH4bDmcc@cluster0.gjfue.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     return AsyncIOMotorClient(uri)
 
 
