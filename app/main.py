@@ -14,7 +14,7 @@ app = FastAPI(
     title="MongoDB FastAPI Backend",
     description="...",
     version="1.0.0",
-    root_path="/mongodb-api",
+    root_path="/mongodb",
 )
 
 app.add_middleware(
