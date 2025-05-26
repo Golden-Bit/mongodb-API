@@ -28,7 +28,8 @@ app.add_middleware(
 # Leggi la URI da ambiente oppure usa quella di default (non è consigliabile hardcodare le credenziali in produzione)
 MONGODB_URI = os.getenv(
     "MONGODB_URI",
-    "mongodb+srv://info:mwL6B0q0E1CNSfpz@cluster0.bmfbkbc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    "mongodb+srv://paoloschiattarella:RmZ87jkz7WJQqLz2@boxed-ai-0.kjmac5d.mongodb.net/?retryWrites=true&w=majority&appName=boxed-ai-0"
+    #"mongodb+srv://info:mwL6B0q0E1CNSfpz@cluster0.bmfbkbc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 )
 
 mongo_client: AsyncIOMotorClient = AsyncIOMotorClient(MONGODB_URI, server_api=ServerApi("1"))  # client globale
